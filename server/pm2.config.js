@@ -6,7 +6,7 @@ module.exports = {
             script: 'npm',
             args: 'index.js',
             env: {
-                'PORT': 3333
+
             },
         },
     ],
