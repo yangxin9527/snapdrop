@@ -1,0 +1,28 @@
+name: Production Deployment
+on:
+  push:
+    branches: [master]
+    tags:
+      - "v*"
+
+defaults:
+  run:
+    working-directory: "./"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # 下载源码
+      - name: Deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: 111.229.202.132
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: 22
+          script: |
+            cd /root/code/snapdrop/server
+            git reset --hard origin/master
+            git pull origin master
+            npm i 
+            pm2 reload pm2.config.js
